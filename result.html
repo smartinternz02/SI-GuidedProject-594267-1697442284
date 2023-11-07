@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <style>
+        body {
+            background-color: #003366; /* Dark Royal Blue background color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 24px;
+            background-color: #004080;
+            color: #fff;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predicted NH4 Value:</h1>
+    <p>{{ prediction }}</p>
+
+    <div class="message">
+        {% if prediction < 325 %}
+            NH4 level is low compared to normal.
+        {% else %}
+            NH4 level is high compared to normal.
+        {% endif %}
+    </div>
+</body>
+</html>

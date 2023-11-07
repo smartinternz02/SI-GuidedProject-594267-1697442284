@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>River Water Quality Prediction</title>
+    <style>
+        body {
+            background-image: url('https://qph.cf2.quoracdn.net/main-qimg-ddd72552a47309d27d79513935249bd5.webp');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        input {
+            width: 300px;
+            height: 30px;
+            font-size: 16px;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>River Water Quality Prediction</h1>
+    <form action="/predict" method="POST">
+        <label for="bsk5">BSK5:</label>
+        <input type="text" name="bsk5" id="bsk5">
+        <label for="suspended">Suspended:</label>
+        <input type="text" name="suspended" id="suspended">
+        <label for="o2">O2:</label>
+        <input type="text" name="o2" id="o2">
+        <label for="no3">NO3:</label>
+        <input type="text" name="no3" id="no3">
+        <label for="so4">SO4:</label>
+        <input type="text" name="so4" id="so4">
+        <label for="po4">PO4:</label>
+        <input type="text" name="po4" id="po4">
+        <label for="cl">CL:</label>
+        <input type="text" name="cl" id="cl">
+        <input type="submit" value="Predict">
+    </form>
+    <script>
+        function showPredictionAlert() {
+            // Create a FormData object from the form
+            const form = document.forms[0];
+            const formData = new FormData(form);
+    
+            // Send an AJAX POST request to the '/predict' route
+            fetch('/predict', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction, NH4 value, and NH4 status in a pop-up alert
+                alert('Prediction: ' + data.prediction + '\nNH4 Value: ' + formData.get('nh4') + '\nNH4 Status: ' + data.nh4_status);
+            })
+            .catch(error => {
+                console.error('An error occurred:', error);
+            });
+    
+            // Prevent the form from submitting the traditional way
+            return false;
+        }
+    </script>    
+</body>
+</html>
